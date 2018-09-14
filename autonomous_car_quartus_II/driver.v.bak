@@ -1,0 +1,63 @@
+module driver(CLK1,CLK2,MODE,DRIVER1,DRIVER2,MOTOR,STEER);
+input CLK1;
+input CLK2;
+input MODE;
+input [1:0]DRIVER1;
+input [1:0]DRIVER2;
+output reg MOTOR;
+output reg STEER;
+
+reg [3:0] pwm1,pwm2;
+reg [9:0] count1,count2;
+
+always @(posedge CLK1)
+begin
+    if(MODE==0)
+	 begin 
+	     case(DRIVER1)
+		  2'b00:begin pwm1<=; pwm2<=; end
+		  2'b01:begin pwm1<=; pwm2<=; end
+		  2'b10:begin pwm1<=; pwm2<=; end
+		  2'b11:begin pwm1<=; pwm2<=; end
+		  endcase
+	 end
+	 else
+	 begin
+	      case(DRIVER2)
+		  2'b00:begin pwm1<=; pwm2<=; end
+		  2'b01:begin pwm1<=; pwm2<=; end
+		  2'b10:begin pwm1<=; pwm2<=; end
+		  2'b11:begin pwm1<=; pwm2<=; end
+		  endcase
+	 end
+end
+
+always @(posedge CLK2)
+begin
+     if(count1==) count1<=0;
+	  else if(count1<pwm1) 
+	       begin 
+			     MOTOR<=1;
+				  count1<=count1+1;
+			 end
+	  else
+	       begin
+			     MOTOR<=0;
+				  count1<=count1+1;
+			 end
+	  if(count2==) count2<=0;
+	  else if(count2<pwm2) 
+	       begin 
+			     STEER<=1;
+				  count2<=count2+1;
+			 end
+	  else
+	       begin
+			     STEER<=0;
+				  count2<=count2+1;
+			 end
+end
+
+endmodule
+
+    

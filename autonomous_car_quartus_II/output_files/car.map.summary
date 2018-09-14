@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Thu Sep 07 13:57:28 2017
+Quartus II 64-Bit Version : 13.0.0 Build 156 04/24/2013 SJ Full Version
+Revision Name : car
+Top-level Entity Name : autocar
+Family : Cyclone II
+Total logic elements : 3,675
+    Total combinational functions : 3,661
+    Dedicated logic registers : 657
+Total registers : 657
+Total pins : 63
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

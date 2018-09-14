@@ -1,0 +1,53 @@
+module surrounding(CLK,EN,minsg,SG90);
+input EN;                //使能信号
+input [3:0] minsg;
+output reg [3:0] SG90;   //电机PWM
+input CLK1;                  //时钟20ms
+input CLK2;                  //时钟10us
+
+reg [24:0] pwm;
+reg [24:0] count;
+
+initial 
+begin 
+    count<=0;
+	 pwm<=0;
+end
+
+always @(posedge CLK1)
+begin
+	  case(minsg)
+		  0:begin pwm1<=150; end
+		  1:begin pwm1<=83;  end
+		  2:begin pwm1<=116; end
+		  3:begin pwm<=150; end
+		  4:begin pwm1<=183;end
+		  5:begin pwm1<=216; end
+	  endcase
+end
+
+always @(posedge CLK2)
+begin
+     if(count==1000)
+	  begin
+	       count<=0;
+	  end
+	  else if(count<pwm) 
+	       begin 
+			     SG90<=1;
+				  count<=count+1;
+			 end
+	  else
+	       begin
+			     SG90<=0;
+				  count<=count+1;
+			 end
+end
+
+endmodule
+
+				
+	  
+				  
+	     
+

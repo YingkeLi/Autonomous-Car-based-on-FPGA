@@ -1,0 +1,79 @@
+module drive(CLK,EN,INFRARED,ULTRASOUND,DRIVER);
+input CLK;                       //时钟信号
+input EN;                        //使能信号
+input reg [1:0] INFRARED;        //红外线信号
+input ULTRASOUND;                //超声波信号
+output reg [1:0] DRIVER;         //驱动输出
+
+parameter stop=2'b00, forward=2'b01, left=2'b10, right=2'b11;
+reg [1:0] state=stop;
+
+always @(posedge CLK)
+begin 
+    case(state)
+	 stop : begin 
+	              if(EN==1|ULTRASOUND==1)
+	              begin 
+					      DRIVER<=0;
+					      state<=stop;
+					  end
+					  else
+					  begin 
+                     DRIVER<=1;
+							state<=forward;
+					  end
+			   end
+	  forward : begin 
+	              if(EN==1|ULTRASOUND==1)
+	              begin 
+					      DRIVER<=0;
+					      state<=stop;
+					  end
+					  else
+					  begin 
+					      case(INFRARED)
+							2'b00:begin DRIVER<=1; state<=forward; end
+							2'b01:begin DRIVER<=2; state<=left; end
+							2'b10:begin DRIVER<=3; state<=right; end
+							2'b11:begin DRIVER<=0; state<=stop; end
+							endcase
+					  end
+					end
+		left : begin 
+		           if(EN==1|ULTRASOUND==1)
+	              begin 
+					      DRIVER<=0;
+					      state<=stop;
+					  end
+					  else
+					  begin 
+					      case(INFRARED)
+							2'b00:begin DRIVER<=1; state<=forward; end
+							2'b01:begin DRIVER<=2; state<=left; end
+							2'b10:begin DRIVER<=3; state<=right; end
+							2'b11:begin DRIVER<=0; state<=stop; end
+							endcase
+					  end
+				  end
+		right : begin 
+		           if(EN==1|ULTRASOUND==1)
+	              begin 
+					      DRIVER<=0;
+					      state<=stop;
+					  end
+					  else
+					  begin 
+					      case(INFRARED)
+							2'b00:begin DRIVER<=1; state<=forward; end
+							2'b01:begin DRIVER<=2; state<=left; end
+							2'b10:begin DRIVER<=3; state<=right; end
+							2'b11:begin DRIVER<=0; state<=stop; end
+							endcase
+					  end
+				  end
+		endcase
+end
+
+endmodule
+
+				  

@@ -1,0 +1,19 @@
+module scan(clk, clkout);
+input clk;
+output reg clkout;
+reg[25:0] count;
+
+always@(posedge clk)
+begin
+	if(count < 10000000)
+	begin
+		count <= count + 1;
+	end
+	else
+	begin
+		count <= 0;
+		clkout <= 1 - clkout;
+	end
+end
+
+endmodule
